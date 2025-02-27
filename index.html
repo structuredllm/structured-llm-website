@@ -34,6 +34,13 @@
             margin-bottom: 10px;
         }
         
+        h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
         .subtitle {
             font-size: 1.2rem;
             color: #666;
@@ -122,6 +129,74 @@
             transform: rotate(180deg);
         }
         
+        .infographic-container {
+            margin: 30px auto;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .infographic {
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-radius: 5px;
+        }
+        
+        /* Team section styles */
+        .team-section {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .team-member {
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--secondary-color);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .team-member h3 {
+            margin: 15px 0 5px;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+        
+        .team-member p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .team-member a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .team-member a:hover {
+            color: var(--hover-color);
+            text-decoration: underline;
+        }
+        
         footer {
             margin-top: 50px;
             text-align: center;
@@ -143,6 +218,16 @@
             .paper-content {
                 padding: 15px;
             }
+            
+            .team-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 20px;
+            }
+            
+            .team-member img {
+                width: 100px;
+                height: 100px;
+            }
         }
     </style>
 </head>
@@ -150,19 +235,31 @@
     <header>
         <h1>Structured LLM</h1>
         <p class="subtitle">Enhancing structured large language model generation</p>
+        
+        <!-- Add the infographic -->
+        <!-- <div class="infographic-container">
+            <img src="structured-llm-infographic.svg" alt="Structured LLM Concept Visualization" class="infographic">
+        </div> -->
     </header>
     
     <main>
         <ul class="paper-list" id="paperList">
             <!-- Paper entries will be populated from JavaScript -->
         </ul>
+        
+        <!-- Team Section -->
+        <section class="team-section">
+            <h2>Research Team</h2>
+            <div class="team-grid" id="teamGrid">
+                <!-- Team members will be populated from JavaScript -->
+            </div>
+        </section>
     </main>
     
     <footer>
         <p>© 2025 Structured LLM Research Project</p>
         <p>Hosted on <a href="https://github.com" target="_blank">GitHub Pages</a></p>
     </footer>
-
     <script>
         const papers = [
             {
@@ -187,7 +284,54 @@
                 codeLink: "https://github.com/uiuc-focal-lab/syncode"
             }
         ];
+        
+        // Team members data
+        const teamMembers = [
+            {
+                name: "Shubham Ugare",
+                role: "PhD Student",
+                image: "/images/shubham.jpg",
+                profileUrl: "https://shubhamugare.github.io/"
+            },
+            {
+                name: "Tarun Suresh",
+                role: "Undergraduate",
+                image: "/images/tarun.PNG",
+                profileUrl: "https://tarsur909.github.io/"
 
+            },
+            {
+                name: "Debangshu Banerjee",
+                role: "PhD Student",
+                image: "/images/debangshu.jpg",
+                profileUrl: "https://debangshu-banerjee.github.io/"
+            },
+            {
+                name: "Rohan Gumaste",
+                role: "Undergraduate",
+                image: "/images/rohan.jpeg",
+                profileUrl: "https://www.linkedin.com/in/rgumaste/"
+            },
+            {
+                name: "Hangoo Kang",
+                role: "Undergraduate",
+                image: "/images/hangoo.jpeg",
+                profileUrl: "https://www.linkedin.com/in/hangoo-kang-10027924a/?locale=en_US"
+            },
+            {
+                name: "Gagandeep Singh",
+                role: "Assistant Professor",
+                image: "/images/gagandeep.jpg",
+                profileUrl: "https://ggndpsngh.github.io/"
+            },
+            {
+                name: "Sasa Misailovic",
+                role: "Associate Professor",
+                image: "/images/sasa.jpeg",
+                profileUrl: "https://misailo.web.engr.illinois.edu/"
+            }
+        ];
+        
         // Function to create paper elements
         function createPaperElements() {
             const paperList = document.getElementById('paperList');
@@ -269,8 +413,43 @@
             });
         }
         
+        // Function to create team member elements
+        function createTeamElements() {
+            const teamGrid = document.getElementById('teamGrid');
+            
+            teamMembers.forEach(member => {
+                const div = document.createElement('div');
+                div.className = 'team-member';
+                
+                const img = document.createElement('img');
+                img.src = member.image;
+                img.alt = member.name;
+                
+                const nameLink = document.createElement('a');
+                nameLink.href = member.profileUrl;
+                nameLink.target = '_blank';
+                
+                const name = document.createElement('h3');
+                name.textContent = member.name;
+                
+                nameLink.appendChild(name);
+                
+                const role = document.createElement('p');
+                role.textContent = member.role;
+                
+                div.appendChild(img);
+                div.appendChild(nameLink);
+                div.appendChild(role);
+                
+                teamGrid.appendChild(div);
+            });
+        }
+        
         // Initialize the page
-        document.addEventListener('DOMContentLoaded', createPaperElements);
+        document.addEventListener('DOMContentLoaded', () => {
+            createPaperElements();
+            createTeamElements();
+        });
     </script>
 </body>
 </html>
