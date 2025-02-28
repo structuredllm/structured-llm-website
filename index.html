@@ -45,6 +45,31 @@
             font-size: 1.2rem;
             color: #666;
         }
+
+        .project-description-container {
+            margin: 30px auto;
+            max-width: 800px;
+            background-color: var(--secondary-color);
+            padding: 20px 25px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .project-description {
+            margin: 0;
+            text-align: justify;
+            line-height: 1.7;
+            color: #444;
+            font-size: 1.05rem;
+        }
+
+        .highlight {
+            color: var(--primary-color);
+            font-weight: 600;
+            padding: 0 2px;
+        }
+        
         
         .paper-list {
             list-style-type: none;
@@ -128,7 +153,7 @@
         .rotate {
             transform: rotate(180deg);
         }
-        
+
         .infographic-container {
             margin: 30px auto;
             max-width: 100%;
@@ -240,9 +265,17 @@
         <!-- <div class="infographic-container">
             <img src="structured-llm-infographic.svg" alt="Structured LLM Concept Visualization" class="infographic">
         </div> -->
+
+        <div class="project-description-container">
+            <p class="project-description">
+                The Structured LLM project focuses on enhancing the reliability and precision of large language model outputs through syntactic and semantic constraints. Our research develops novel frameworks that ensure LLM-generated content adheres to specific format rules and grammar specifications for languages like <span class="highlight">JSON</span>, <span class="highlight">SQL</span>, <span class="highlight">Python</span>, and <span class="highlight">Java</span>. Through innovations like grammar augmentation, iterative structured generation with backtracking, and reasoning-augmented constrained decoding, we aim to eliminate syntax and semantic errors and improve the overall quality of structured outputs for applications in code generation, data serialization formats, and symbolic reasoning tasks.
+            </p>
+        </div>
     </header>
     
     <main>
+        
+
         <ul class="paper-list" id="paperList">
             <!-- Paper entries will be populated from JavaScript -->
         </ul>
