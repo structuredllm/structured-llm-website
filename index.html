@@ -40,6 +40,8 @@
             margin-bottom: 20px;
             text-align: center;
         }
+
+
         
         .subtitle {
             font-size: 1.2rem;
@@ -154,19 +156,40 @@
             transform: rotate(180deg);
         }
 
+        /* Enhanced styling for the infographic container */
         .infographic-container {
-            margin: 30px auto;
+            margin: 40px auto;
             max-width: 100%;
             text-align: center;
+            padding: 10px;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
+        /* Enhanced styling for the workflow image */
         .infographic {
             max-width: 100%;
             height: auto;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            border-radius: 5px;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            border: 1px solid #eaeaea;
         }
-        
+
+        /* Optional hover effect */
+        .infographic:hover {
+            transform: scale(1.01);
+        }
+
+        /* Media query for better mobile responsiveness */
+        @media (max-width: 768px) {
+            .infographic-container {
+                margin: 30px auto;
+                padding: 5px;
+            }
+        }
+
         /* Team section styles */
         .team-section {
             margin-top: 50px;
@@ -262,9 +285,11 @@
         <p class="subtitle">Enhancing structured large language model generation</p>
         
         <!-- Add the infographic -->
-        <!-- <div class="infographic-container">
-            <img src="structured-llm-infographic.svg" alt="Structured LLM Concept Visualization" class="infographic">
-        </div> -->
+        <div class="infographic-container">
+            <img src="images/workflow.png" alt="Structured LLM Concept Visualization" class="infographic" style="width: 100%; max-width: 1200px; height: auto;">
+
+        </div>
+
 
         <div class="project-description-container">
             <p class="project-description">
