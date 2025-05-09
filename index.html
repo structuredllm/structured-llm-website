@@ -270,6 +270,61 @@
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
         
+        /* Publication venue badge styling */
+        .pub-venue {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, var(--primary-color), var(--hover-color));
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pub-venue::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .paper:hover .pub-venue::before {
+            left: 100%;
+        }
+        
+        /* Structure for header with right-aligned badge */
+        .paper-header {
+            position: relative;
+        }
+        
+        .badge-container {
+            position: absolute;
+            top: 15px;
+            right: 60px; /* Leave space for the expand icon */
+        }
+        
+        /* For smaller screens */
+        @media (max-width: 500px) {
+            .badge-container {
+                position: static;
+                margin-top: 5px;
+                display: inline-block;
+            }
+            
+            .expand-icon {
+                position: absolute;
+                right: 15px;
+                top: 15px;
+            }
+        }
+    
         /* GitHub link styling */
         .github-link {
             position: fixed;
@@ -409,21 +464,24 @@
                 authors: "Shubham Ugare, Tarun Suresh, Hangoo Kang, Sasa Misailovic, Gagandeep Singh",
                 abstract: "LLMs are widely used in complex AI applications. These applications underscore the need for LLM outputs to adhere to a specific format, for their integration with other components in the systems. Typically the format rules e.g., for data serialization formats such as JSON, YAML, or Code in Programming Language are expressed as context-free grammar (CFG). Due to the hallucinations and unreliability of LLMs, instructing LLMs to adhere to specified syntax becomes an increasingly important challenge. We present SynCode, a novel framework for efficient and general syntactical decoding with LLMs, to address this challenge. SynCode ensures soundness and completeness with respect to the CFG of a formal language, effectively retaining valid tokens while filtering out invalid ones. SynCode uses an offline-constructed, efficient lookup table, the DFA mask store, derived from the DFA of the language's grammar for efficient generation. SynCode seamlessly integrates with any language defined by CFG, as evidenced by experiments focusing on generating JSON, Python, and Go outputs. Our experiments evaluating the effectiveness of SynCode for JSON generation demonstrate that SynCode eliminates all syntax errors and significantly outperforms state-of-the-art baselines. Furthermore, our results underscore how SynCode significantly reduces 96.07% of syntax errors in generated Python and Go code, showcasing its substantial impact on enhancing syntactical precision in LLM generation.",
                 pdfLink: "https://arxiv.org/pdf/2403.01632",
-                codeLink: "https://github.com/uiuc-focal-lab/syncode"
+                codeLink: "https://github.com/uiuc-focal-lab/syncode",
+                venue: "TMLR 2025"
             },
             {
                 title: "IterGen: Iterative Semantic-aware Structured LLM Generation with backtracking",
                 authors: "Shubham Ugare, Rohan Gumaste, Tarun Suresh, Gagandeep Singh, Sasa Misailovic",
                 abstract: "Large Language Models (LLMs) are widely used for tasks such as natural language and code generation, but their outputs often suffer from issues like hallucination, toxicity, and incorrect results. Current libraries for structured LLM generation rely on left-to-right decoding without support for backtracking, limiting the ability to correct or refine outputs mid-generation. To address this, we introduce IterGen, a user-friendly library for iterative, grammar-guided LLM generation that enables users to move both forward and backward within the generated output based on grammar symbols. By leveraging a symbol-to-position mapping and maintaining the key-value (KV) cache state, IterGen ensures efficient and structured generation while allowing for corrections during the process. We demonstrate IterGen's effectiveness in two applications: reducing privacy leakage in LLM outputs and improving the accuracy of LLM-generated SQL queries.",
                 pdfLink: "https://arxiv.org/pdf/2410.07295",
-                codeLink: "https://github.com/uiuc-arc/itergen"
+                codeLink: "https://github.com/uiuc-arc/itergen",
+                venue: "ICLR 2025"
             },
             {
                 title: "CRANE: Reasoning with constrained LLM generation",
                 authors: "Debangshu Banerjee, Tarun Suresh, Shubham Ugare, Sasa Misailovic, Gagandeep Singh",
                 abstract: "Code generation, symbolic math reasoning, and other tasks require LLMs to produce outputs that are both syntactically and semantically correct. Constrained LLM generation is a promising direction to enforce adherence to formal grammar, but prior works have empirically observed that strict enforcement of formal constraints often diminishes the reasoning capabilities of LLMs. In this work, we first provide a theoretical explanation for why constraining LLM outputs to very restrictive grammars that only allow syntactically valid final answers reduces the reasoning capabilities of the model. Second, we demonstrate that by augmenting the output grammar with carefully designed additional rules, it is always possible to preserve the reasoning capabilities of the LLM while ensuring syntactic and semantic correctness in its outputs. Building on these theoretical insights, we propose a reasoning-augmented constrained decoding algorithm, CRANE, which effectively balances the correctness of constrained generation with the flexibility of unconstrained generation. Experiments on multiple open-source LLMs and benchmarks show that CRANE significantly outperforms both state-of-the-art constrained decoding strategies and standard unconstrained decoding, showing up to 10% points accuracy improvement over baselines on challenging symbolic reasoning benchmarks GSM-symbolic and FOLIO.",
                 pdfLink: "https://arxiv.org/pdf/2502.09061",
-                codeLink: "https://github.com/uiuc-focal-lab/syncode"
+                codeLink: "https://github.com/uiuc-focal-lab/syncode",
+                venue: "ICML 2025"
             }
         ];
         
@@ -518,6 +576,19 @@
                 titleDiv.appendChild(title);
                 titleDiv.appendChild(authors);
                 
+                // Create a container for the badge and position it to the right
+                if (paper.venue) {
+                    const badgeContainer = document.createElement('div');
+                    badgeContainer.className = 'badge-container';
+                    
+                    const venueDiv = document.createElement('span');
+                    venueDiv.className = 'pub-venue';
+                    venueDiv.textContent = paper.venue;
+                    
+                    badgeContainer.appendChild(venueDiv);
+                    header.appendChild(badgeContainer);
+                }
+                
                 const expandIcon = document.createElement('span');
                 expandIcon.className = 'expand-icon';
                 expandIcon.innerHTML = '▼';
@@ -557,6 +628,8 @@
                 content.appendChild(abstractTitle);
                 content.appendChild(abstract);
                 content.appendChild(linksDiv);
+                
+                // We've already added the venue badge to the header, so we don't need to add it here
                 
                 // Add everything to list item
                 li.appendChild(header);
