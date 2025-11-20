@@ -467,7 +467,7 @@
                 authors: "Shubham Ugare, Tarun Suresh, Hangoo Kang, Sasa Misailovic, Gagandeep Singh",
                 abstract: "LLMs are widely used in complex AI applications. These applications underscore the need for LLM outputs to adhere to a specific format, for their integration with other components in the systems. Typically the format rules e.g., for data serialization formats such as JSON, YAML, or Code in Programming Language are expressed as context-free grammar (CFG). Due to the hallucinations and unreliability of LLMs, instructing LLMs to adhere to specified syntax becomes an increasingly important challenge. We present SynCode, a novel framework for efficient and general syntactical decoding with LLMs, to address this challenge. SynCode ensures soundness and completeness with respect to the CFG of a formal language, effectively retaining valid tokens while filtering out invalid ones. SynCode uses an offline-constructed, efficient lookup table, the DFA mask store, derived from the DFA of the language's grammar for efficient generation. SynCode seamlessly integrates with any language defined by CFG, as evidenced by experiments focusing on generating JSON, Python, and Go outputs. Our experiments evaluating the effectiveness of SynCode for JSON generation demonstrate that SynCode eliminates all syntax errors and significantly outperforms state-of-the-art baselines. Furthermore, our results underscore how SynCode significantly reduces 96.07% of syntax errors in generated Python and Go code, showcasing its substantial impact on enhancing syntactical precision in LLM generation.",
                 pdfLink: "https://arxiv.org/pdf/2403.01632",
-                codeLink: "https://github.com/uiuc-focal-lab/syncode",
+                codeLink: "https://github.com/structuredllm/syncode",
                 venue: "TMLR 2025"
             },
             {
@@ -475,7 +475,7 @@
                 authors: "Shubham Ugare, Rohan Gumaste, Tarun Suresh, Gagandeep Singh, Sasa Misailovic",
                 abstract: "Large Language Models (LLMs) are widely used for tasks such as natural language and code generation, but their outputs often suffer from issues like hallucination, toxicity, and incorrect results. Current libraries for structured LLM generation rely on left-to-right decoding without support for backtracking, limiting the ability to correct or refine outputs mid-generation. To address this, we introduce IterGen, a user-friendly library for iterative, grammar-guided LLM generation that enables users to move both forward and backward within the generated output based on grammar symbols. By leveraging a symbol-to-position mapping and maintaining the key-value (KV) cache state, IterGen ensures efficient and structured generation while allowing for corrections during the process. We demonstrate IterGen's effectiveness in two applications: reducing privacy leakage in LLM outputs and improving the accuracy of LLM-generated SQL queries.",
                 pdfLink: "https://arxiv.org/pdf/2410.07295",
-                codeLink: "https://github.com/uiuc-arc/itergen",
+                codeLink: "https://github.com/structuredllm/itergen",
                 venue: "ICLR 2025"
             },
             {
@@ -487,10 +487,10 @@
                 venue: "ICML 2025"
             },
             {
-                title: "Byte-level Tokenizers Unavoidably Enable LLMs to Generate Ill-formed UTF-8",
+                title: "UTF-8 Plumbing: Byte-level Tokenizers Unavoidably Enable LLMs to Generate Ill-formed UTF-8",
                 authors: "Preston Firestone, Shubham Ugare, Gagandeep Singh, and Sasa Misailovic",
                 abstract: "Subword tokenization segments input text according to a pre-defined vocabulary to feed it into a language model; the language model, in turn, generates a sequence made from this same vocabulary. The members of the vocabulary can be built of code points or bytes. Using code points means that all members of the vocabulary are valid UTF-8 characters. However, it also requires thousands of initial members to achieve acceptable coverage of inputs and more than a million to entirely avoid out-of-vocabulary errors. Beginning with bytes, on the contrary, avoids out-of-vocabulary errors with only 256 initial members of the vocabulary, but the members of the vocabulary and sequences of them are not guaranteed to be valid UTF-8. Sequences that are not valid UTF-8 break code that assumes its input to be valid UTF-8. Applications of language models that operate under this assumption must account for the breakage thereby introduced. In this paper, we formalize tokenization using monoid theory and prove that byte-level tokenizers with vocabularies smaller than the full Unicode space inevitably face either out-of-vocabulary issues or generate invalid UTF-8 sequences. We demonstrate formally that attempting to incrementally convert tokens back to a string and interpret the results as UTF-8 gives different results than converting the whole sequence of tokens at once. This formal result causes real-world bugs; in some cases we discover bugs whose existence was predicted by the theoretical result. We evaluate mitigations for the problem identified and provide case studies of major foundation models, serving engines, and constrained generation systems.",
-                pdfLink: "https://openreview.net/pdf?id=j2hH02UVch",
+                pdfLink: "https://arxiv.org/abs/2511.05578",
                 codeLink: "",
                 venue: "COLM 2025"
             },
@@ -499,7 +499,7 @@
                 authors: "Tarun Suresh, Debangshu Banerjee, Shubham Ugare, Sasa Misailovic, Gagandeep Singh",
                 abstract: "Diffusion LLMs have emerged as a promising alternative to conventional autoregressive LLMs, offering substantial potential for improving runtime efficiency. However, existing diffusion models fail to provably enforce user-specified formal constraints, such as regular expressions, which makes them unreliable for tasks that require structured outputs, such as fixed-schema JSON generation. Unlike autoregressive models, which generate tokens sequentially, diffusion LLMs predicta block of tokens in parallel. This parallelism makes traditional constrained decoding algorithms, designed to enforce constraints with sequential token prediction,ineffective at preserving the true output distribution. To address this limitation, we propose DINGO, a dynamic programming-based constrained decoding strategy that is both efficient and provably distribution-preserving. DINGO enables sampling of output strings with the highest probability under the model’s predicted distribution while strictly adhering to any user-specified regular expression. On standard symbolic math and JSON generation benchmarks, DINGO achieves up to a 68% points of improvement over unconstrained inference.",
                 pdfLink: "https://arxiv.org/pdf/2505.23061",
-                codeLink: "https://github.com/uiuc-focal-lab/syncode",
+                codeLink: "",
                 venue: "NeurIPS 2025"
             },
             {
@@ -636,21 +636,23 @@
                 
                 const linksDiv = document.createElement('div');
                 linksDiv.className = 'paper-links';
-                
+
                 const pdfLink = document.createElement('a');
                 pdfLink.className = 'paper-link';
                 pdfLink.href = paper.pdfLink;
                 pdfLink.textContent = 'PDF';
                 pdfLink.target = '_blank';
-                
-                const codeLink = document.createElement('a');
-                codeLink.className = 'paper-link';
-                codeLink.href = paper.codeLink;
-                codeLink.textContent = 'Code';
-                codeLink.target = '_blank';
-                
                 linksDiv.appendChild(pdfLink);
-                linksDiv.appendChild(codeLink);
+
+                if (paper.codeLink) {
+                    const codeLink = document.createElement('a');
+                    codeLink.className = 'paper-link';
+                    codeLink.href = paper.codeLink;
+                    codeLink.textContent = 'Code';
+                    codeLink.target = '_blank';
+                    linksDiv.appendChild(codeLink);
+                }
+                
                 
                 content.appendChild(abstractTitle);
                 content.appendChild(abstract);
